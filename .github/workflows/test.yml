@@ -1,0 +1,23 @@
+name: Manual Approval with Protected Environments
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run build
+        run: echo "Building the project..."
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: production # Name of the protected environment
+    steps:
+      - name: Deploy
+        run: echo "Deploying the project..."
